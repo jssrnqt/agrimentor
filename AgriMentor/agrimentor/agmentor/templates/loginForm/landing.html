@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Mentor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #CDEBAF, #F9FBE7); /* Fresh green gradient */
+            overflow-x: hidden;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid #99CC70;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 3rem;
+            color: #4A7A3C;
+        }
+
+        .header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.5rem;
+            color: #6DAA5D;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slides img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .navigation button {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #4A7A3C;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .navigation button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+        }
+
+        .content {
+            max-width: 700px;
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            font-size: 2.5rem;
+            color: #4A7A3C;
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .cta-button {
+            margin-top: 1.5rem;
+            background: linear-gradient(120deg, #6DAA5D, #99CC70);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            background: linear-gradient(120deg, #6DAA5D, #4A7A3C);
+            color: white;
+            padding: 1rem;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        @media (min-width: 768px) {
+            .main {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .content {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Agri Mentor</h1>
+        <p>Grow together with expert advice and community support.</p>
+    </div>
+    <div class="main">
+        <div class="slider-container">
+            <div class="slides">
+                <img src="images/agriculture1.jpg" alt="Agriculture Image 1">
+                <img src="images/agriculture2.jpg" alt="Agriculture Image 2">
+                <img src="images/agriculture3.jpg" alt="Agriculture Image 3">
+            </div>
+            <div class="navigation">
+                <button onclick="moveSlide(-1)">&#10094;</button>
+                <button onclick="moveSlide(1)">&#10095;</button>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Discover the Secrets to Successful Farming</h2>
+            <p>Join Agri Mentor to gain access to valuable resources, connect with seasoned mentors, and explore innovative agricultural techniques for sustainable growth.</p>
+            <button class="cta-button"><a href="{% url 'register' %}">Get Started</a></button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Agri Mentor. All rights reserved.</p>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+function moveSlide(direction) {
+    const slides = document.querySelectorAll('.slides img');
+    slides[currentSlide].style.display = 'none';
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    slides[currentSlide].style.display = 'block';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slides img');
+    slides.forEach((slide, index) => {
+        slide.style.display = index === 0 ? 'block' : 'none';
+    });
+});
+
+    </script>
+</body>
+</html>
